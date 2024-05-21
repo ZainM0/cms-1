@@ -1,0 +1,97 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Navbar from '../Nav/Navbar';
+
+const ViewComplaints = () => {
+  const [complaints, setComplaints] = useState([]);
+  const [updateText, setUpdateText] = useState('');
+
+  useEffect(() => {
+    const fetchComplaints = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/complaints');
+        setComplaints(response.data);
+      } catch (error) {
+        console.error('Error fetching complaints:', error);
+      }
+    };
+    fetchComplaints();
+  }, []);
+
+  const handleUpdate = async (id) => {
+    try {
+      const response = await axios.post(`http://localhost:5000/api/complaints/${id}/update`, {
+        updateText: updateText
+      });
+      console.log(response.data);
+      // Assuming the response contains updated complaint data
+      const updatedComplaints = complaints.map(complaint => {
+        if (complaint._id === id) {
+          return { ...complaint, updates: [...complaint.updates, updateText] };
+        }
+        return complaint;
+      });
+      setComplaints(updatedComplaints);
+      setUpdateText('');
+    } catch (error) {
+      console.error('Error updating complaint:', error);
+    }
+  };
+
+  return (
+    <div>
+
+     <div className="navbar">
+        <Navbar />
+      </div>
+
+      <div className="container">
+        <h2>View Complaints</h2>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Crime Title</th>
+              <th>Crime Description</th>
+              <th>Date and Time</th>
+              <th>Nearest Police Station</th>
+              <th>Updates</th>
+              <th>Enter Update</th>
+            </tr>
+          </thead>
+          <tbody>
+            {complaints.map((complaint, index) => (
+              <tr key={index}>
+                <td>{complaint.crimeTitle}</td>
+                <td>{complaint.crimeDescription}</td>
+                <td>{complaint.dateTime}</td>
+                <td>{complaint.policeStation}</td>
+                <td>
+                  <ul>
+                    {complaint.updates.map((update, idx) => (
+                      <li key={idx}>{update}</li>
+                    ))}
+                  </ul>
+                </td>
+                <td>
+                  <textarea 
+                    value={updateText} 
+                    onChange={(e) => setUpdateText(e.target.value)} 
+                    rows={3}
+                  />
+                  <button 
+                    onClick={() => handleUpdate(complaint._id)} 
+                    className="btn btn-primary"
+                  >
+                    Submit Update
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default ViewComplaints;
