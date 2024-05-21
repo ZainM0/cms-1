@@ -31,7 +31,6 @@ const Signup = () => {
   });
 
   return (
-    <div>
 <div> <div className="navbar"> <Navbar /> </div>
 
       <div className="mt-5"></div> {/* Add margin-top to create space between navbar and signup section */}

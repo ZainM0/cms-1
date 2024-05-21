@@ -26,7 +26,7 @@ const Login_police = () => {
 
     return (
         <div>
-<div> <div className="navbar"> <Navbar /> </div>
+<div className="navbar"> <Navbar /> </div>
 
           <div className="container" id='spacer'></div>
 

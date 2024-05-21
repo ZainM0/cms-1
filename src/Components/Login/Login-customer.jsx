@@ -27,7 +27,6 @@ const Login_customer = () => {
   });
 
   return (
-    <div>
 <div> <div className="navbar"> <Navbar /> </div>
       <div className="container" id='spacer'></div>
 

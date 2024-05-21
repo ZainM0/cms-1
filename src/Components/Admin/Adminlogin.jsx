@@ -5,7 +5,7 @@ import Navbar from "../Nav/Navbar";
 const Adminlogin = () => {
   return (
     <div>
-<div> <div className="navbar"> <Navbar /> </div>
+<div className="navbar"> <Navbar /> </div>
       
       <div class="container">
     <div class="row justify-content-md-center" >
@@ -41,4 +41,4 @@ const Adminlogin = () => {
   )
 }
 
-export default Adminlogin
+export default Adminlogin;

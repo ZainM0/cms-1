@@ -6,7 +6,6 @@ import Navbar from "../Nav/Navbar";
 
 const Login = () => {
   return (
-    <div>
 <div> <div className="navbar"> <Navbar /> </div>
     <div className="container mt-5">
       <div className="row">
